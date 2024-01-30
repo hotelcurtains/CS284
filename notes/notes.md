@@ -51,6 +51,7 @@ mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/j
 - an `abstract` class cannot be instantiated, but is strictly a superclass that specifies how its subclass/es must be implemented.
   - `public abstract class Shape {`
   - can have regular and abstract methods. derived classes need not override concrete functions (but they can).
+  - can have a constructor, even if it can't be instantiated
 - a concrete class is a regular class
   - if a concrete class doesn't override an abstract method from its base class, it cannot be instantiated.
 
@@ -61,7 +62,7 @@ mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/j
 - defined: `public interface MyInterface {...}`
 - inhereted with `implements` rather than `extends`
 - you can *implement* as many interfaces as you want with a comma-separated list: `public class Square implements Shape, DisplayObject,  {...}`
-- 
+- cannot include a constructor
 
 
 # is-a / has-a
@@ -71,10 +72,12 @@ mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/j
   - child HAS-A birth date.
 
 ## UML outline
+Unified Modeling language
+
 regular concrete class:
 |ClassName|
 |--|
-|-private data member: Type<br>+public data member: Type<br>#protected data member: Type|
+|-privateDataMember: Type<br>+publicDataMember: Type<br>#protectedDataMember: Type|
 |-privateMethod(): ReturnType<br>+publicMethod(): ReturnType<br>#protectedMethod(): ReturnType|
 UML class diagram:
 
@@ -89,5 +92,6 @@ UML class diagram:
 
   ![example of a UML diagram where a class inherits and implements an abstract method](image.png)
 - interfaces are denoted by putting `<<interface>>` on top of their name
-- any classes that inherit it point a dashed line with an unfilled arrow at it.
-  - also just repeat all of the interface's methods bc now they're concrete
+  - all regular type
+  - any classes that inherit it point a dashed line with an unfilled arrow at it.
+    - also just repeat all of the interface's methods in the derived class bc now they're concrete
