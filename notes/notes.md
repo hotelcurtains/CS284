@@ -26,7 +26,7 @@ the different types of access modifiers:
 | ------------------------------- | ---- | ----------------------- | ------------------ | ------------------- | -------- |
 | `public`                        | Y    | Y                       | Y                  | Y                   | Y        |
 | `protected`                     | Y    | Y                       | Y                  | N                   | N        |
-| no modifier /<br>`package-private` | Y    | Y                       | N                  | N                   | N        |
+| no modifier/<br>`package-private` | Y    | Y                       | N                  | N                   | N        |
 | `private`                       | Y    | N                       | N                  | N                   | N        |
 mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html)
 
@@ -95,3 +95,17 @@ UML class diagram:
   - all regular type
   - any classes that inherit it point a dashed line with an unfilled arrow at it.
     - also just repeat all of the interface's methods in the derived class bc now they're concrete
+
+# List ADT
+- basically the platonic ideal of a List in programming
+- the point of this data type is that the implementation is unknown
+![Table 14.1.1: Some common operations for a list ADT.](image-2.png)
+- singly-linked lists are where each node (i.e. element/cell) links to the one in front of and behind it, and no others.
+  - if something points to *null*, it is pointing to nothing.
+- the head node is the first one. awesome.
+- the tail node is the last one.
+## idk what this notation is called
+- list⇢head = 9 assigns 9 as the head of the list, replacing the original.
+- list⇢tail = 9 sets 9 as the last node in the list, replacing the new one.
+- list⇢tail⇢next = 9 assigns 9 as the new last node in the list, i.e. what comes after what was the last one
+- 
