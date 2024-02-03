@@ -104,8 +104,16 @@ UML class diagram:
   - if something points to *null*, it is pointing to nothing.
 - the head node is the first one. awesome.
 - the tail node is the last one.
+## ListRemoveAfter
+- `ListRemoveAfter(list, null)`: trying to remove the node after `null` node removes the head of the list instead.
+- `ListRemoveAfter` will set `sucNode` to whatever node comes after the node being removed
 ## idk what this notation is called
 - list⇢head = 9 assigns 9 as the head of the list, replacing the original.
 - list⇢tail = 9 sets 9 as the last node in the list, replacing the new one.
 - list⇢tail⇢next = 9 assigns 9 as the new last node in the list, i.e. what comes after what was the last one
-- 
+## Linked list search
+- returns the first node from the list witht he value you input, including its original pointer (even if it's null)
+  - nodes visited = how many nodes come before the correct one *plus the correct one*
+- if there is none, it returns null.
+ - nodes visited = amoutn of nodes in the list
+-  
