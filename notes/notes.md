@@ -22,13 +22,13 @@ the different types of access modifiers:
   - no modifier is only visible to classes in the same package.
   - `private` can only be accessed in its own class 
   - `protected` can only be accessed within its own package AND by a subclass of its class, even if it is in a different package
-| Modifier                        | Self | Other classes,<br>same pkg | Subclass,<br>same pkg | Subclass,<br>diff. pkg | Anywhere |
-| ------------------------------- | ---- | ----------------------- | ------------------ | ------------------- | -------- |
-| `public`                        | Y    | Y                       | Y                  | Y                   | Y        |
-| `protected`                     | Y    | Y                       | Y                  | N                   | N        |
-| no modifier/<br>`package-private` | Y    | Y                       | N                  | N                   | N        |
-| `private`                       | Y    | N                       | N                  | N                   | N        |
-mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html)
+| Modifier                          | Self | Other classes,<br>same pkg | Subclass,<br>same pkg | Subclass,<br>diff. pkg | Anywhere |
+| --------------------------------- | ---- | -------------------------- | --------------------- | ---------------------- | -------- |
+| `public`                          | Y    | Y                          | Y                     | Y                      | Y        |
+| `protected`                       | Y    | Y                          | Y                     | N                      | N        |
+| no modifier/<br>`package-private` | Y    | Y                          | N                     | N                      | N        |
+| `private`                         | Y    | N                          | N                     | N                      | N        |
+[oracle tutorial](https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html)
 
 - Java doesn't support restricting access by instance, only by class.
   - A class's methods are allowed to access private members of other objects of the same class. More precisely, a method of class C can access private members of C on objects of any subclass of C.
@@ -41,6 +41,29 @@ mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/j
     - perhaps make an `ArrayList` of `Object`s and put basically anything besides literals in it
   - if you iterate along all of the objects and call a method that the base class has, the JVM will run the subclass's overridden version or, if they don't override it, will use the base class's version of it.
     - you must call a method defined in the base class the list was made for
+## Mismatching Constructors
+Here's an example:
+
+![alt text](image-3.png)
+```java
+public class main {
+    public static void main(String[] args) {
+        Circle c1 = new Cylinder(1.1,2.2); // base class object with derived class's constructor. diff. args, no error
+        System.out.println(c1.getRadius()); // ok because cylinder's constructor sets radius.
+        c1.getHeight(); // Exception thrown. Circle has no method getHeight().
+        c1.getVolume(); // Exception thrown. Circle has no method getVolume().
+        System.out.println(c1.toString()); // uses Cylinder's toString(), overridden from Circle's.
+        System.out.println(c1.getArea()); // uses Cylinder's getArea(), overridden from Circle's.
+
+        Cylinder c2 = new Circle(2.2); // Exception thrown. cannot convert. die.
+        
+    }
+}
+```
+- this specific type of object can use only methods defined by the base class `Circle`. 
+- if you try to call a method that *only* `Cylinder` has, an Exception is thrown.
+- `c1` will use `Cylinder`'s methods iff it overrides them; otherwise it will use `Circle`'s definition.
+- you cannot instantiate a derived class using the constructor of the base class.
 
 # Types of classes
 ## Abstract classes
@@ -75,10 +98,10 @@ mostly from the [oracle tutorial](https://docs.oracle.com/javase/tutorial/java/j
 Unified Modeling language
 
 regular concrete class:
-|ClassName|
-|--|
-|-privateDataMember: Type<br>+publicDataMember: Type<br>#protectedDataMember: Type|
-|-privateMethod(): ReturnType<br>+publicMethod(): ReturnType<br>#protectedMethod(): ReturnType|
+| ClassName                                                                                     |
+| --------------------------------------------------------------------------------------------- |
+| -privateDataMember: Type<br>+publicDataMember: Type<br>#protectedDataMember: Type             |
+| -privateMethod(): ReturnType<br>+publicMethod(): ReturnType<br>#protectedMethod(): ReturnType |
 UML class diagram:
 
 ![UML class diagram](image-1.png)
@@ -97,7 +120,7 @@ UML class diagram:
     - also just repeat all of the interface's methods in the derived class bc now they're concrete
 
 # List ADT
-- basically the platonic ideal of a List in programming
+- the basic concept of a List in programming
 - the point of this data type is that the implementation is unknown
 ![Table 14.1.1: Some common operations for a list ADT.](image-2.png)
 - singly-linked lists are where each node (i.e. element/cell) links to the one in front of and behind it, and no others.
