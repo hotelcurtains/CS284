@@ -1,6 +1,6 @@
 package polymorphism;
 
-public class main {
+public class lol {
     public static void main(String[] args) {
         Circle c1 = new Cylinder(1.1,2.2); // base class object with derived class's constructor. diff. args, no error
         System.out.println(c1.getRadius()); // ok because cylinder's constructor sets radius.

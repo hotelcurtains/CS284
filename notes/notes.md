@@ -45,6 +45,7 @@ the different types of access modifiers:
 Here's an example:
 
 ![alt text](image-3.png)
+
 ```java
 public class main {
     public static void main(String[] args) {
@@ -135,8 +136,77 @@ UML class diagram:
 - list⇢tail = 9 sets 9 as the last node in the list, replacing the new one.
 - list⇢tail⇢next = 9 assigns 9 as the new last node in the list, i.e. what comes after what was the last one
 ## Linked list search
-- returns the first node from the list witht he value you input, including its original pointer (even if it's null)
+- returns the first node from the list with he value you input, including its original pointer (even if it's null)
   - nodes visited = how many nodes come before the correct one *plus the correct one*
 - if there is none, it returns null.
- - nodes visited = amoutn of nodes in the list
--  
+ - nodes visited = amount of nodes in the list
+
+# Algorithm Efficiency
+![a bunch of complexity graphs](https://fineproxy.org/wp-content/uploads/2023/05/Computational-complexity-theory.jpg.webp)
+- further counter-clockwise = worse
+- Linear growth rate: O(n)
+  - increases in direct proportion to amount of inputs
+- O(n * m)
+  - for each element in n, we loop through all of m, thus n*m comparisons are being made.
+- O(n + m)
+  - iterating through n once and m once.
+- effectively: nested loops = multiplication, consecutive loops = addition
+  - adding a loop that runs a literal amount of times (not affected by list length) is still linear, O(n)
+- quadratic growth rate O(n^2)
+  - i.e., comparing each element in a list of every single other element in the list.
+  - for each element, you check every other element. like n\*m, except it's just n\*n, thus n^2.
+    ```java
+    public static boolean areUnique(int[] x) {
+      for(int i=0; i<x.length; i++) {
+        for(int j=0; j<x.length; j++) {
+          if (i != j && x[i] == x[j])
+            return false;
+        }
+      }
+      return true;
+    }
+    ```
+    - optimize this by only checking through once -- if they are all equal or all not equal, you only need to check that equality once through.
+- given something strange like:
+```java
+for(int i=1; i < x.length; i *= 2) {
+  // Do something with x[i]
+}
+```
+  ![alt text](image-4.png)
+  - therefore complexity is O(log_2(n)) 
+- some method f(n)'s complexity might be defined by upper bound (worst case) g(n) and lower bound (worst case) h(n)
+- more intense version:
+  ```java
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      // Simple Statement
+    }
+  }
+  for (int i = 0; i < n; i++) {
+    // Simple Statement 1
+    // Simple Statement 2
+    // Simple Statement 3
+    // Simple Statement 4
+    // Simple Statement 5
+  }
+  // Simple Statement 6
+  // Simple Statement 7
+  // ...
+  // Simple Statement 30
+  ```
+  - this time is T(n) = n^2 + 5n + 25
+    - one full iteration nested within another = n^2
+    - one full iteration through 5 statements = 5n
+    - 25 statements outside of a loop = 25
+- the growth rate = fastest-growing term of formula (highest degree)
+  - n^2 + 5n + 25 --> O(n^2)
+- c is the point where the upper bound diverges from O(n)
+  - ![alt text](image-6.png)
+
+
+## Constant time operations
+- addition, subtraction, multiplication, division
+- assignment of a reference, pointer, other fixed data value
+- comparison of two fixed-sized values
+- reading from / writing to an array at a given index
