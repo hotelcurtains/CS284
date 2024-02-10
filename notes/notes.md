@@ -144,6 +144,8 @@ UML class diagram:
 # Algorithm Efficiency
 ![a bunch of complexity graphs](https://fineproxy.org/wp-content/uploads/2023/05/Computational-complexity-theory.jpg.webp)
 - further counter-clockwise = worse
+
+![Table 14.6.1: Growth rates for different input sizes.](image-5.png)
 - Linear growth rate: O(n)
   - increases in direct proportion to amount of inputs
 - O(n * m)
@@ -167,15 +169,30 @@ UML class diagram:
     }
     ```
     - optimize this by only checking through once -- if they are all equal or all not equal, you only need to check that equality once through.
+- O(NlogN) - linearithmic or log-linear
+  - e.g.:
+  ```java
+  public void MergeSort(int[] numbers, int i, int k) {
+   int j = 0
+   if (i < k) {
+      j = (i + k) / 2              // Find midpoint 
+      
+      MergeSort(numbers, i, j)     // Sort left part
+      MergeSort(numbers, j + 1, k) // Sort right part
+      Merge(numbers, i, j, k)      // Merge parts
+   }
+  }
+  ```
 - given something strange like:
-```java
-for(int i=1; i < x.length; i *= 2) {
-  // Do something with x[i]
-}
-```
+  ```java
+  for(int i=1; i < x.length; i *= 2) {
+    // Do something with x[i]
+  }
+  ```
   ![alt text](image-4.png)
-  - therefore complexity is O(log_2(n)) 
-- some method f(n)'s complexity might be defined by upper bound (worst case) g(n) and lower bound (worst case) h(n)
+
+  - therefore complexity is T(log_2(n))
+    - becomes O(log(n))
 - more intense version:
   ```java
   for (int i = 0; i < n; i++) {
@@ -199,6 +216,15 @@ for(int i=1; i < x.length; i *= 2) {
     - one full iteration nested within another = n^2
     - one full iteration through 5 statements = 5n
     - 25 statements outside of a loop = 25
+  - find O(n):
+    - highest degree term of T(n) = n^2
+    - if it had a coefficient we'd remove it
+    - if there was a log we'd ignore its base
+    - therefore O(n) = n^2
+    - if it becomes just a constant it becomes O(1)
+    - here's this too
+      ![alt text](image-7.png)
+- some method f(n)'s complexity might be defined by upper bound (worst case) g(n) and lower bound (worst case) h(n)
 - the growth rate = fastest-growing term of formula (highest degree)
   - n^2 + 5n + 25 --> O(n^2)
 - c is the point where the upper bound diverges from O(n)
