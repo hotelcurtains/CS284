@@ -236,3 +236,42 @@ UML class diagram:
 - assignment of a reference, pointer, other fixed data value
 - comparison of two fixed-sized values
 - reading from / writing to an array at a given index
+
+# Generic Types
+- instead of making a bunch of different versions of one method for every different data type, we can use generic classes.
+```java
+public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
+  // new method min_max. it's static, it needs to know we've named
+  // the generic class E and it to be comparable.
+  // it takes an array of like objects.
+  // it will return a Pair with data members of that same type.
+
+  //... i didn't get to write out the implementation
+}
+```
+
+# Data Structures
+- `List`:
+  - sequence of elements with possible duplicates
+  - fixed size
+  - operations:
+    - construct a new list
+    - add an element at beginning, end, or specific index
+      - `list.add("hi")` adds `"hi"` to the end
+      - `list.add(2, "bye")` inserts `"bye"` at index 2
+    - remove an element
+      - removes given argument and shifts all following items back one
+    - find an element in the list
+    - check if list is empty
+    - iterate over elements
+- `ArrayList`:
+  - fixed size
+    - if we add capacity it will reallocate the memory, i.e. create a new `ArrayList` to do so
+  - constant time to access elements
+  - linear removal and insertion
+- `LinkedList`:
+  - variable size
+  - linear access
+  - linear insertion and removal 
+    - (unless previous element supplied, then constant)
+  - 
