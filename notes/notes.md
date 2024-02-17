@@ -251,7 +251,8 @@ public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
 ```
 
 # Data Structures
-- `List`:
+# Array-based lists
+- `List` interface:
   - sequence of elements with possible duplicates
   - fixed size
   - operations:
@@ -264,14 +265,18 @@ public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
     - find an element in the list
     - check if list is empty
     - iterate over elements
+  - the following structures implement the `List` interface
 - `ArrayList`:
-  - fixed size
+  - dynamic size
     - if we add capacity it will reallocate the memory, i.e. create a new `ArrayList` to do so
-  - constant time to access elements
-  - linear removal and insertion
+  - indexed
+    - constant time to access elements
+    - linear removal and insertion
 - `LinkedList`:
-  - variable size
-  - linear access
-  - linear insertion and removal 
-    - (unless previous element supplied, then constant)
-  - 
+  - dynamic size
+  - not indexed
+    - linear-time access
+    - constant-time insertion
+    - linear-time removal
+- `Stack`:
+  - tbd

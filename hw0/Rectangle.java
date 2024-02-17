@@ -1,4 +1,4 @@
-package lab0;
+package hw0;
 
 public class Rectangle{
 	double width = 0;

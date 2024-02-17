@@ -30,7 +30,7 @@ public class MyList<E>{
         size++;
         return true;
     }
-    // get new array with double the size and same items in same index
+    // get new array with double the size with same items in same index
     public void reallocate(){
         capacity = capacity*2;
         theData = Arrays.copyOf(theData, capacity);

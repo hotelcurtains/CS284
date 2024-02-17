@@ -1,3 +1,5 @@
+package hw1;
+
 /**
 * @author Daniel Detore
 * Section: CS 284-E / CS 284-RJ
