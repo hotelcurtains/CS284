@@ -1,6 +1,7 @@
 package hw2;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 class IDLListTest {
     @Test
-    void test(){
+    void basicTest(){
         IDLList<Integer> test = new IDLList<Integer>();
         test.add(4);
         test.add(7);
@@ -44,6 +45,33 @@ class IDLListTest {
         assertTrue(test.remove(4));
         assertEquals(test.toString(),"");
         assertEquals(test.size(),0);
-        
+    }
+    @Test
+    void throwsTest(){
+        IDLList<Integer> list = new IDLList<Integer>();
+        list.add(4);
+        list.add(7);
+        list.add(0,5);
+        list.append(12);
+        assertEquals(list.toString(),"5, 4, 7, 12");
+        assertEquals(list.size(),4);
+
+        assertThrows(IndexOutOfBoundsException.class, ()->list.add(-1,6));
+        assertThrows(IndexOutOfBoundsException.class, ()->list.add(4,6));
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(7));
+    }
+    @Test 
+    void emptyList(){
+        IDLList<Integer> list = new IDLList<Integer>();
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(0));
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(12));
+        assertThrows(IllegalStateException.class, ()->list.remove());
+        assertThrows(IllegalStateException.class, ()->list.removeLast());
+        assertThrows(IndexOutOfBoundsException.class, ()->list.get(-1));
+        assertNull(list.getHead());
+        assertNull(list.getLast());
+
     }
 }

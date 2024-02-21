@@ -100,12 +100,11 @@ public class IDLList<E> {
      * @param index The index at which to insert elem.
      * @param elem  The data to insert.
      * @return True.
-     * @throws IndexOutOfBoundsException if index given is less than zero or greater
-     *                                   than the size of this IDLList.
+     * @throws IndexOutOfBoundsException if index given is out of bounds of this IDLList.
      */
     public boolean add(int index, E elem) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Invalid index for this IDLList.");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index "+index+" out of bounds for this IDLList.");
         }
 
         Node<E> newNode = new Node<E>(elem);
@@ -130,7 +129,7 @@ public class IDLList<E> {
         Node<E> newHead = new Node<E>(elem);
         indices.add(newHead);
         size++;
-        tail = newHead;
+        head = newHead;
 
         return true;
     }
@@ -155,18 +154,27 @@ public class IDLList<E> {
      * 
      * @param index The index to search for.
      * @return the data of the node at the given index of this IDLList.
+     * @throws IndexOutOfBoundsException if index is out of bounds of this IDLList.
      */
     public E get(int index) {
-        return indices.get(index).data;
+        if (index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Index "+index+" out of bounds for this IDLList.");
+        } else {
+            return indices.get(index).data;
+        }
     }
 
     /**
      * Returns the data of the head node of this IDLList.
      * 
-     * @return the data of the head node of this IDLList.
+     * @return the data of the head node of this IDLList. null if there is no head.
      */
     public E getHead() {
-        return head.data;
+        if (head != null){
+            return head.data;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -175,7 +183,11 @@ public class IDLList<E> {
      * @return the data of last (tail) node of this IDLList.
      */
     public E getLast() {
-        return tail.data;
+        if (tail != null){
+            return tail.data;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -209,17 +221,17 @@ public class IDLList<E> {
      * Removes the last node (tail) of this IDL list and returns what its data used
      * to be.
      * 
-     * @return The previous tail of the list.
+     * @return The data of the previous tail of the list.
      * @throws IllegalStateException if there is no tail node in this IDLList.
      */
     public E removeLast() {
         if (tail == null) {
-            throw new IllegalStateException("No head node in this IDLList.");
+            throw new IllegalStateException("No tail node in this IDLList.");
         }
         E oldTail = tail.data;
         indices.remove(size - 1);
-        tail = indices.get(0);
         size--;
+        tail = indices.get(size - 1);
         return oldTail;
     }
 
@@ -232,13 +244,14 @@ public class IDLList<E> {
      *                               IDLList.
      */
     public E removeAt(int index) {
-        if (indices.get(index).data == null) {
+        if (index < 0 || index >= size){
             throw new IllegalStateException("No node at " + index + " in this IDLList.");
-        }
+        } else {
         E oldNode = indices.get(index).data;
         indices.remove(index);
         size--;
         return oldNode;
+        }
     }
 
     /**

@@ -280,3 +280,5 @@ public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
     - linear-time removal
 - `Stack`:
   - tbd
+
+
