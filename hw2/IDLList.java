@@ -61,11 +61,7 @@ public class IDLList<E> {
          *         Continues recursively to display all linked Nodes' pointers and data.
          */
         public String toString() {
-            String out = "Data: " + data;
-            if (next != null) {
-                out += "\nPrev:\n    " + prev;
-                out += "\nNext:\n    " + next;
-            }
+            String out = "" + data;
             return out;
         }
     }
@@ -99,7 +95,7 @@ public class IDLList<E> {
     }
 
     /**
-     * Adds a new node to this IDLList at the given index.
+     * Adds a new node with the given data to this IDLList at the given index.
      * 
      * @param index The index at which to insert elem.
      * @param elem  The data to insert.
@@ -140,7 +136,7 @@ public class IDLList<E> {
     }
 
     /**
-     * Appends a new node to this IDLList at index = size.
+     * Appends a new node with the given data to this IDLList at index = size.
      * 
      * @param elem The data to append.
      * @return True.
@@ -155,28 +151,28 @@ public class IDLList<E> {
     }
 
     /**
-     * Returns the node at the given index of this IDLList.
+     * Returns the data of the node at the given index of this IDLList.
      * 
      * @param index The index to search for.
-     * @return the node at the given index of this IDLList.
+     * @return the data of the node at the given index of this IDLList.
      */
     public E get(int index) {
         return indices.get(index).data;
     }
 
     /**
-     * Returns the head node of this IDLList.
+     * Returns the data of the head node of this IDLList.
      * 
-     * @return the head node of this IDLList.
+     * @return the data of the head node of this IDLList.
      */
     public E getHead() {
         return head.data;
     }
 
     /**
-     * Returns the last (tail) node of this IDLList.
+     * Returns the data of last (tail) node of this IDLList.
      * 
-     * @return the last (tail) node of this IDLList.
+     * @return the data of last (tail) node of this IDLList.
      */
     public E getLast() {
         return tail.data;
@@ -192,10 +188,11 @@ public class IDLList<E> {
     }
 
     /**
-     * Removes the node at the head of this IDL list and returns what it used to be.
+     * Removes the node at the head of this IDL list and returns what its data used
+     * to be.
      * 
      * @return The previous head of the list.
-     * @throws IllegalStateException if there is no head node in the list.
+     * @throws IllegalStateException if there is no head node in this IDLList.
      */
     public E remove() {
         if (head == null) {
@@ -209,10 +206,11 @@ public class IDLList<E> {
     }
 
     /**
-     * Removes the last node (tail) of this IDL list and returns what it used to be.
+     * Removes the last node (tail) of this IDL list and returns what its data used
+     * to be.
      * 
      * @return The previous tail of the list.
-     * @throws IllegalStateException if there is no tail node in the list.
+     * @throws IllegalStateException if there is no tail node in this IDLList.
      */
     public E removeLast() {
         if (tail == null) {
@@ -225,10 +223,40 @@ public class IDLList<E> {
         return oldTail;
     }
 
-    // TODO public E removeAt (int index)
-    // TODO public boolean remove (E elem)
+    /**
+     * Removes the node at the given index in this IDLList and returns its data.
+     * 
+     * @param index The index of the node to remove.
+     * @return The data of the node previously at the given index.
+     * @throws IllegalStateException if there is no node at the given index in this
+     *                               IDLList.
+     */
+    public E removeAt(int index) {
+        if (indices.get(index).data == null) {
+            throw new IllegalStateException("No node at " + index + " in this IDLList.");
+        }
+        E oldNode = indices.get(index).data;
+        indices.remove(index);
+        size--;
+        return oldNode;
+    }
 
-
+    /**
+     * Removes the first node with data equal to elem.
+     * 
+     * @param elem The data to search for.
+     * @return True if the node is found and removed, false if not.
+     */
+    public boolean remove(E elem) {
+        for (int i = 0; i < indices.size(); i++) {
+            if (indices.get(i).data == elem) {
+                indices.remove(i);
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Returns a string representation of this IDLList.
@@ -238,9 +266,11 @@ public class IDLList<E> {
     public String toString() {
         String out = "";
         for (Node<E> c : indices) {
-            out += c + "\n";
+            out += c + ", ";
         }
-
+        if (out.length()>1) {
+        out = out.substring(0,out.length()-2);
+        }
         return out;
     }
 
