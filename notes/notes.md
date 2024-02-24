@@ -282,3 +282,11 @@ public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
   - tbd
 
 
+# Iterator class
+- like using a for each loop except you can edit the items white you iterate
+```java
+while (iterator.hasNext()){
+    String nextItem = iterator.next
+    System.out.println(nextItem);
+}
+```
