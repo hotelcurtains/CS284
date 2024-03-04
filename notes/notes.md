@@ -84,7 +84,7 @@ public class main {
   - because they only contain abstract methods you don't actually need to include  `abstract` in their signatures
   - this means you can specify access modifiers for its abstract methods
 - defined: `public interface MyInterface {...}`
-- inhereted with `implements` rather than `extends`
+- inherited with `implements` rather than `extends`
 - you can *implement* as many interfaces as you want with a comma-separated list: `public class Square implements Shape, DisplayObject,  {...}`
 - cannot include a constructor
 
@@ -279,8 +279,13 @@ public static<E extends Comparable<E>> Pair<E> min_max(E[] array){
     - constant-time insertion
     - linear-time removal
 - `Stack`:
-  - tbd
-
+  - push pop, peak, isEmpty. that's it 
+    - peak does not affect the stack
+    - java also has search to tell you where/if an object is in the stack
+  - cannot remove from the middle/beginning, only the top
+  - last in, first out
+  - can only be created as empty in java
+  - constant-time push/pop/peak
 
 # Iterator class
 - like using a for each loop except you can edit the items white you iterate
@@ -290,3 +295,32 @@ while (iterator.hasNext()){
     System.out.println(nextItem);
 }
 ```
+
+## Queue ADT
+- new items go at the end and items are removed from the front
+  - `add(element)` inserts an item at the end of the queue, exception if full
+    - `offer(element)` adds an element to the end, false if full
+  - `remove()` removes the item at the front of the queue, exception if null
+    - `poll()` removes and returns it, null if already empty
+  - `peek()` returns the first item without removing it, exception if null
+    - `element()` returns the first item without removing it, null if empty
+  - *isEmpty* returns true if there are no items in the queue
+  - *getLength* int length
+  - dequeue and peak might throw errors on an empty queue
+- first-in-first-out
+- can be implemented with a linked list or array
+  - in the array implementation you can set which index in the array counts as the head and how long it is (which may exclude certain values in the array from the queue)
+- bounded queue has a max length, i.e. can get full
+- unbounded queue does not
+- (frontIndex + length) % array.length = the index at which to place the new item for enqueue
+- requires two pointers- head and tail
+- Queue is an interface in java - not implemented
+- using a circular array lets us add+remove in constant time
+  - rear of a circular array = (current rear index + 1) % capacity
+  - new items will be added at the rear index
+  - we keep front index for reference
+  - O(n) for reallocation
+  - everything else is constant
+- single-linked list, double-linked list, and circular array queues all have similar space complexity.
+
+# Recursion
