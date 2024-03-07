@@ -323,4 +323,53 @@ while (iterator.hasNext()){
   - everything else is constant
 - single-linked list, double-linked list, and circular array queues all have similar space complexity.
 
-# Recursion
+# Review
+- 1: time complexity
+  - polynomial time T(n)
+  - O(n) is largest exponent of T(n)
+  - exercise booklet 2 q1
+  - easiest way to find is to trace
+  - constant loop, inside is a loop from 0 to n but the step is j*2 ⟹ O(nlogn)
+- SLL add/remove = linear
+  - WITH reference to preceding node = linear
+- understand how a queue works
+  - no coding but tracing
+  - remember commands
+- same for stack: understand how it works + its commands but no coding question
+- given `Node<E>` class and a linked list, make a LL like the original but with each element repeated `n` times
+  ```java
+  Node<E> repeat(Node<E> L, int n){
+    if (head == null) return null;
+    Node<E> head = L
+    Node<E> result = new Node<E>(null);
+    Node<E> dummy = result;
+    while(L.head != null){
+      for(i=1; i<=n; i++){
+        result.next= new Node<E>(head);
+        result = result.next;
+      }
+    head = head.next;
+    result = result.next;
+    }
+    return dummy;
+  }
+  ```
+  - i.e. L = [1,2,3], n = 3 ⟶ [1, 1, 1, 2, 2, 2, 3, 3, 3]
+- remove tail:
+```java
+boolean removeTail(Node<E> L){
+  Node<E> head = L;
+  if (head==null) return false;
+  if (head.next == null){
+    L = null;
+    return true;
+  }
+  current = head;
+  while (current.next.next != null){
+    current = current.next;
+  }
+  current.next = null;
+  return true;
+}
+```
+find if a string is palindrome, validate parentheses
