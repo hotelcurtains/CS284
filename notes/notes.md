@@ -144,7 +144,6 @@ UML class diagram:
 # Algorithm Efficiency
 ![a bunch of complexity graphs](https://fineproxy.org/wp-content/uploads/2023/05/Computational-complexity-theory.jpg.webp)
 - further counter-clockwise = worse
-
 ![Table 14.6.1: Growth rates for different input sizes.](image-5.png)
 - Linear growth rate: O(n)
   - increases in direct proportion to amount of inputs
@@ -373,3 +372,37 @@ boolean removeTail(Node<E> L){
 }
 ```
 find if a string is palindrome, validate parentheses
+
+# Binary Tree
+- Recursive Data Structure
+- general tree: any item might have multiple children
+- binary tree: any item has 0, 1, or 2 children
+- all nodes have spaces for data and left and right children
+  - nodes with no children are leaves
+    - i.e. left and right children are null
+  - nodes with any (≥1) children are internal nodes
+  - children of the same parent are siblings
+  - in a *full binary tree*, there are no nodes with 1 child
+    - all have either 2 or 0 children
+  - a *perfect binary tree* is 
+    - a full binary tree where all leaves have the same depth
+    - has exactly the maximum number of nodes
+  - a *complete binary tree* is 
+    - a perfect binary tree until its second-to-last level
+    - extra nodes at its lowest level are all toward the left
+- hierarchal folder structure
+- the only reference (way to access the tree) is from the root (topmost parent node)
+- height = distance from root to furthest leaf
+## Traversal
+- inorder: L Root R
+  - inorder(r.left)
+  - print(r)
+  - inorder(r.right)
+- preorder: Root L R
+  - print(r)
+  - preorder(r.left)
+  - preorder(r.right)
+- postorder: L R Root
+  - postorder(r.left)
+  - postorder(r.right)
+  - print(r)
