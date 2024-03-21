@@ -375,24 +375,36 @@ find if a string is palindrome, validate parentheses
 
 # Binary Tree
 - Recursive Data Structure
-- general tree: any item might have multiple children
-- binary tree: any item has 0, 1, or 2 children
+- general tree: a node can have any number of children
+  - we can imagine a hierarchal file system as a general tree.
+  - files and empty directories are leaves, folders are internal nodes
+  - it needs to support a variable amount of children per node
+- **binary tree**: any item has 0, 1, or 2 children
 - all nodes have spaces for data and left and right children
   - nodes with no children are leaves
     - i.e. left and right children are null
-  - nodes with any (≥1) children are internal nodes
-  - children of the same parent are siblings
-  - in a *full binary tree*, there are no nodes with 1 child
-    - all have either 2 or 0 children
-  - a *perfect binary tree* is 
-    - a full binary tree where all leaves have the same depth
-    - has exactly the maximum number of nodes
-  - a *complete binary tree* is 
-    - a perfect binary tree until its second-to-last level
-    - extra nodes at its lowest level are all toward the left
-- hierarchal folder structure
+- nodes with any (≥1) children are **internal nodes**
+  - this includes the root
+- children of the same parent are **siblings**
+- any node above a node are its **ancestors**
+- the link from a parent to child node is an **edge**
+- A node's **depth** is the number of edges on the path from the root to the node. 
+  - The root node thus has depth 0.
+- All nodes with the same depth form a tree **level**.
+- A tree's **height** is the largest depth of any node. 
+  - A tree with just one node has height 0.
+- in a **full binary tree**, there are no nodes with 1 child
+  - all have either 2 or 0 children
+- a **perfect binary tree** is 
+  - a full binary tree where all leaves have the same depth
+  - has exactly the maximum number of nodes
+- a **complete binary tree** is 
+  - a perfect binary tree until its second-to-last level
+  - extra nodes at its lowest level are all toward the left
+- examples:
+![different types of binary trees](image-8.png)
 - the only reference (way to access the tree) is from the root (topmost parent node)
-- height = distance from root to furthest leaf
+
 ## Traversal
 - inorder: L Root R
   - inorder(r.left)
@@ -406,3 +418,22 @@ find if a string is palindrome, validate parentheses
   - postorder(r.left)
   - postorder(r.right)
   - print(r)
+
+## Binary Search Trees
+- a binary tree with a specific ordering.
+![BST ordering property](image-9.png)
+- in searching a BST you:
+  - get the value of the node
+  - compare it to the one you're searching for
+  - if the value is < needed, go right; if the value is > needed, go left
+  - repeat
+- searching a binary tree is O(H), H = the height of the BST.
+  - we can minimize H by forcing all levels of the tree to be full, except possibly the lowest level (greatest depth)
+  - for N nodes, H = floor(log₂ N)
+  - therefore we can say the search for a perfect BST has O(logN)
+    - much better than a list which has O(N)
+  - the amount of *comparisons* required = H+1 = floor(log₂ N)+1
+- each node in a BST has a predecessor and successor in the specific ordering (recall this is equivalent to putting them in a list in ascending value order)
+  - ![BST ordering](image-10.png)
+  - this looks like inorder traversal
+- 
