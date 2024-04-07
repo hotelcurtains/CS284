@@ -392,7 +392,12 @@ find if a string is palindrome, validate parentheses
   - The root node thus has depth 0.
 - All nodes with the same depth form a tree **level**.
 - A tree's **height** is the largest depth of any node. 
-  - A tree with just one node has height 0.
+  - A tree with just one node has height 0. 
+- in a **balanced binary tree**
+  - difference between the left and the right subtree for any node is not more than one
+  - the left subtree is balanced
+  - the right subtree is balanced
+![balanced vs unbalanced binary trees](image-11.png)
 - in a **full binary tree**, there are no nodes with 1 child
   - all have either 2 or 0 children
 - a **perfect binary tree** is 
@@ -427,13 +432,128 @@ find if a string is palindrome, validate parentheses
   - compare it to the one you're searching for
   - if the value is < needed, go right; if the value is > needed, go left
   - repeat
-- searching a binary tree is O(H), H = the height of the BST.
+  - if we find it, return true
+  - if we ever reach a case where we get two leaves and x > L and x < R, return false
+- searching a BST is O(H), H = the height of the BST.
+  - the structure of the tree can highly affect its performance
   - we can minimize H by forcing all levels of the tree to be full, except possibly the lowest level (greatest depth)
   - for N nodes, H = floor(log₂ N)
   - therefore we can say the search for a perfect BST has O(logN)
     - much better than a list which has O(N)
   - the amount of *comparisons* required = H+1 = floor(log₂ N)+1
+- inserting into a BST is also O(H).
+  - inserting in a random order is actually the best ray to get a balanced tree
 - each node in a BST has a predecessor and successor in the specific ordering (recall this is equivalent to putting them in a list in ascending value order)
   - ![BST ordering](image-10.png)
   - this looks like inorder traversal
+- [deleting node n from BST](https://www.youtube.com/watch?v=DkOswl0k7s4)
+  - when deleting a leaf node, just set the parent's pointer to null instead of n
+  - if the node has 1 child, replace the parent's pointer to n with a pointer to n's child.
+    - the child should be in the same pointer of the parent as n was, no matter which side n's child was on.
+    - we can then safely delete n.
+  - if n has two children, there are two options
+    - take the minimum node from the right child's tree and replace n with it, then delete that original minimum node. this will be like deleting a leaf node.
+    - take the  maximum node from the left child's tree and replace n with it, then delete that original maximum node. this will be like deleting a leaf node.
+- finding the max of a BST = finding the rightmost child.
+- finding the min of a BST = finding the leftmost child.
+
+## Heaps
+- A min-heap is a complete binary tree where
+  - the root is the smallest value
+  - every subtree is also a min-heap
+- A max-heap is a complete binary tree where
+  - the root is the largest value
+  - every subtree is also a max-heap
+- Height = floor(logN)
+- When inserting, insert it into the lowest, leftmost spot in the tree and percolate it up (swap parent and new node) until it would break the x-heap property.
+  - O(logN) = O(H)
+- Removing the root node: replace it with the lowest-rightmost node and percolate down until it would break the principle.
+  - in max-heap, swap new node with greatest child.
+  - in min-heap, swap new node with least child.
+  - this will usually also return the root node's value.
+  - you'll never remove anything except the root node.
+  - O(logN)
+### Heaps as arrays
+- Unlike a BST, they are turned into arrays just be reading through the tree.
+  - ![alt text](image-12.png)
+  - this only works because it has a strict structure
+  - this needs to be an indexed array since parent/child info is not retained
+- for node i, its parent is at floor((i-1)/2) and its children are at 2i+1 and 2i+2.
+  - the parent node formula does not work on the root node.
+  - the children nodes formula works for leaf nodes but it will be outside the bounds of the array.
+
+
+## Treaps
+- assuming we're dealing with a max-treap
+- a BST that contains nodes with data (main keys) and randomly assigned "priority" keys (secondary keys) that also dictate its order
+- search works like a regular BST search
+- insert 
+  - first places the node in BST order based on its data, then 
+  - assigns it a random priority value and 
+  - percolates it based on all nodes' priority
+- therefore it should always be sorted by both data and priority
+- as long as BST order is fulfilled, two siblings can have the same priority, as can a parent and child
+  - a parent's priority must be ≥ that of its child
+  - left/right children order is irrelevant for priority.
+- to remove a node: set its priority to -∞, percolate it down to make it a leaf, and remove it from there.
+  - percolating a node down uses ROTATIONS, not swaps, to preserve priority.
+  - ![removing a node from a treap](image-13.png)
+
+
+# Sorting algorithms
+## Selection sort
+- looks through the list for the smallest number, and swaps index 0 with it
+- then looks for the second-smallest and swaps index 1 with it
+- this repeats until there are no more places to check.
+- one swap occurs each iteration
+- O(N²)
+- indexSmallest will be assigned N-1 times
+## Insertion Sort
+- sorts the first two elements
+- moves the 3rd back until it's in place
+- moves the 4th back until it's in place
+- repeats until there are no more items to move.
+- O(N²)
+  - or O(N) for sorted or nearly sorted lists (only one element out of place)
+- e.g. ![alt text](image-14.png)
+- number of comparisons = (N-1)*(N/2)
+  - only a single comparison is needed if the items are in order.
+## Shell sort
+- split the list into smaller interleaved lists by choosing each element k spaces apart
+- sort each of the smaller lists with insertion sort
+- then interleave them again and sort the full list with insertion sort.
+- size-1 = (amount of smaller lists) * (gap size)
+- amount of smaller lists = gap size
+  - they might have different sizes
+- gap size should be a power of 2 minus 1 except 0.
+  - though you can use any number for gap size.
+- it HAS to end with a ap of 1 to actually sort the whole thing
+  - this gives us O(N^(3/2))
+## Quicksort
+- [check this guy out](https://www.youtube.com/watch?v=XE4VP_8Y0BU)
+- chooses a pivot in the list
+  - in every example i can find they chose the last item in the original list as the pivot
+  - perhaps the first
+  - ideally, you want the pivot to always be the midpoint of the list to split it up evenly in half
+- typically O(NlogN) but worse case O(n²)
+  - worse case = you keep choosing the smallest or largest item in the partition as the pivot
+  - best case = you keep choosing the midpoint
+- sorts the items > and ≤ the pivot separately
+  - chooses a pivot in the smaller list
+  - sorts the items greater and less than the pivot separately
+    - etc.
+  - put the ≤ sorted bit on the left of the pivot, the > bit on the right
+  - keep doing that and the list is sorted
+- until the whole thing is sorted
+- if there are an odd amount of items the pivot idex is rounded down
+- if there is one item in a partition it is sorted
+- otherwise break it up and sort it again
+- best case partitioning levels = log₂N
+  - worst-case - n-1
+- amount of comparisons = Nlog₂N
+- midpoint = floor(lowIndex + (highIndex - lowIndex) / 2)
+- pivot = item at midpoint index
+## Merge Sort
+- splits lists into halves, sorts each half, and recombines and sorts them until we have a full list that's sorted
+- for N elements there are log₂N partition levels
 - 
