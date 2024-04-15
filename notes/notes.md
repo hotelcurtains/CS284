@@ -501,7 +501,9 @@ find if a string is palindrome, validate parentheses
 
 
 # Sorting algorithms
+- these all sort in-place except for merge-sort
 ## Selection sort
+- brute force algorithm
 - looks through the list for the smallest number, and swaps index 0 with it
 - then looks for the second-smallest and swaps index 1 with it
 - this repeats until there are no more places to check.
@@ -549,11 +551,55 @@ find if a string is palindrome, validate parentheses
 - if there is one item in a partition it is sorted
 - otherwise break it up and sort it again
 - best case partitioning levels = log₂N
-  - worst-case - n-1
+  - worst-case: n-1
 - amount of comparisons = Nlog₂N
 - midpoint = floor(lowIndex + (highIndex - lowIndex) / 2)
 - pivot = item at midpoint index
 ## Merge Sort
+- does not sort in-place; uses external storage
 - splits lists into halves, sorts each half, and recombines and sorts them until we have a full list that's sorted
 - for N elements there are log₂N partition levels
+
+# Set interface
+- member of the Collection hierarchy
+- all elements in a set are unique
+- sets are not indexed
+- do not maintain insertion order
+- efficient search and retrieval
+  - we can use contains() for sets which runs quickly
+- allow removal of elements without any shifting
+
+# Map interface
+- Map itself is not part of the collection hierarchy
+- maps of keys to values
+  - the collection of keys will be a Set
+  - the values will be a Collection
+- keys must be unique but values do not need to be
+- more efficient than set in retrieval
+
+
+# Hash Table
+- a hash table stores items without order/index.
+- searching, inserting and removing can all be O(n).
+- the key should be completely unique, while its value does not need to be.
+- the hash function determines where to store new values, i.e. which "buckets" to put them in.
+  - for the amount of items n in the table, the hash function is input % n which will have indices 0 through n-1.
+- collision: a new item is routed to a full bucket
+  - chaining: when items collide, make the bucket into a list of everything routed to it
+  - open addressing: putting the new item in some other empty bucket when the intended one is full
+    - linear probing: keep looking for the closest empty bucket
+      - the search algorithm will stop when it reaches an item that has never been full, since there is no way the item we're trying to find can be in the list if we haven't reached it by then
+      - this will not affect insertion
+    - quadratic probing: on collision, the new value is mapped to ((the original map) + c1\*i + c2\*i²) % tableSize with c1 and c2 given and i is how many collisions we've run into thus far.
+- resizing the hashtable is O(n) because it has ot reallocate all of the items in it
+- usually they are resized to the next prime number ≥ 2N
+- load factor: total items / buckets
+  - when this gets too big it might be time to resize the hashtable
+- a perfect hash function maps all elements with no collisions, but it can only be made if we know all of the elements beforehand
+  - this makes O(n) for everything
+- a mid-square squares the key, extracts R digits from the result's middle, and returns the remainder of the middle digits divided by hash table size N.
+  - stops keys from all mapping to the same buckets
+- a multiplicative hash takes an initial value, repeatedly multiplies it by some (usually prime) number, and adds the ascii value of the next character in the string and takes that result mod table size N
+  - initial value 5381 and multiplier 33 is quite good for short english strings
+  - anagrams will map to the same bucket
 - 
