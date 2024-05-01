@@ -1,5 +1,11 @@
 package hw6;
 
+/**
+ * @author Daniel Detore
+ * Section: CS 284-E/RJ
+ * Pledge: I pledge my honor that I have abided by the Stevens Honor System.
+ */
+
 import java.util.Arrays;
 
 public class CountingSort {
