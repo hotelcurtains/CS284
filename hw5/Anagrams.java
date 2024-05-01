@@ -1,4 +1,4 @@
-package anagrams;
+package hw5;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -99,7 +99,6 @@ public class Anagrams {
 	}
 	
 	public static void main(String[] args) {
-		
 		//System.out.println(a.letterTable.toString()); 
 		//{a=2, b=3, c=5, d=7, e=11, f=13, g=17, h=19, i=23, j=29, k=31, l=37, m=41, n=43, o=47, p=53, q=59, r=61, s=67, t=71, u=73, v=79, w=83, x=89, y=97, z=101}
 		//System.out.println(a.myHashCode("alerts")); //236204078
@@ -119,6 +118,5 @@ public class Anagrams {
 		final double seconds = ((double) estimatedTime/1000000000);
 		System.out.println("Time: "+ seconds);
 		System.out.println("List of max anagrams: "+ maxEntries);
-		
 	}
 }
