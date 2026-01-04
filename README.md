@@ -1,2 +1,2 @@
-# CS284
-CS284 2024S with Prof. Alrumayh
+# CS 284
+CS 284 - Data Structures with Professor Alrumayh in Spring 2024
